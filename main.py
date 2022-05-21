@@ -1,31 +1,36 @@
-from math import pi
+from cmath import sqrt
+import math
 
-def calc_area(fig):
-    l = len(fig)
-    if l == 1:
-        return pi * fig[0]**2
-    if l == 2:
-        return fig[0] * fig[1]
-    if l == 3:
-        s = (fig[0] + fig[1] + fig[2]) / 2
-        return (s * (s - fig[0]) * (s - fig[1]) * (s - fig[2])) ** 0.5
-    if l >= 4:
-        return 'N/D'
+def pole_figury(x):
+    if len(x) == 1:
+        wynik = math.pi*x[0]*x[0]
+        wynik = round(wynik, 2)
+    elif len(x) == 2:
+        wynik = x[0]*x[1]
+        wynik = round(wynik, 2)
+    elif len(x) == 3:
+        s = (x[0] + x[1] + x[2])/2
+        wynik = math.sqrt(s*(s - x[0]) * (s - x[1]) * (s - x[2]))
+        wynik = round(wynik, 2)
+    else:
+        return "Błąd: można podać maksymalnie 3 liczby"
+    return wynik
 
-i = int(input())
-sum = 0
+pole=0
+liczba_figur = input()
+liczba_figur = int(liczba_figur)
 
-for n in range(i):
-    f = list(map(float, input().split()))
-    area = calc_area(f)
-    if area == 'N/D':
-        sum = 'N/D'
+for i in range(liczba_figur):
+    figura = input().strip()
+    figura = figura.split(' ')
+    for j in range(len(figura)):
+        figura[j] = float(figura[j])
+
+    wynik_funkcji = pole_figury(figura)
+    if type(wynik_funkcji) is not float:
+        pole = wynik_funkcji
         break
-    sum = sum + calc_area(f)
+    pole = pole + wynik_funkcji
+    pole = round(pole, 2)
 
-if sum != 'N/D':
-    print(format(sum, ".2f"))
-else:
-    print("Błąd: można podać maksymalnie 3 liczby")
-    
-    
+print(pole)
